@@ -7,5 +7,5 @@
 #
 
 sssd 'default' do
-  action :install
+  action [:install, :configure]
 end
