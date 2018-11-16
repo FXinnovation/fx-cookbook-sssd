@@ -7,5 +7,6 @@
 #
 
 sssd 'default' do
-  action [:install, :configure]
+  restart_service false
+  action          [:install, :configure]
 end

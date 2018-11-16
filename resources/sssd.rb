@@ -10,8 +10,9 @@ resource_name :sssd
 
 provides :sssd, platform_family: 'rhel'
 
-property :version,       String
-property :configuration, Hash, default: {}
+property :version,         String
+property :configuration,   Hash,          default: {}
+property :restart_service, [true, false], default: true
 
 default_action :install
 
@@ -77,7 +78,7 @@ action :configure do
     mode     '0600'
     owner    'root'
     group    'root'
-    notifies :restart, 'service[sssd]', :delayed
+    notifies :restart, 'service[sssd]', :delayed if new_resource.restart_service
     variables(
       configuration: configuration
     )
