@@ -56,7 +56,10 @@ action :configure do
     'dns_resolver_timeout'           => '5',
   }
 
-  configuration = {}
+  configuration = {
+    'sssd'                     => default_sssd_section,
+    "domain/#{node['domain']}" => default_domain_section,
+  }
 
   new_resource.configuration.each do |key, value|
     configuration[key] = case key
