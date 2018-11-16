@@ -25,46 +25,47 @@ end
 action :configure do
   # Define sane default sections
   default_sssd_section = {
-      "domains"             => node['domain'],
-      "config_file_version" => 2,
-      "services"            => 'nss, pam',
+    'domains'             => node['domain'],
+    'config_file_version' => '2',
+    'services'            => 'nss, pam',
   }
 
   default_domain_section = {
-    "ad_domain"                      => node['domain'],
-    "krb5_realm"                     => node['domain'].upcase,
-    "realmd_tags"                    => 'manages-system joined-with-samba',
-    "cache_credentials"              => 'False',
-    "id_provider"                    => 'ad',
-    "krb5_store_password_if_offline" => 'False',
-    "default_shell"                  => '/bin/bash',
-    "ldap_id_mapping"                => 'True',
-    "use_fully_qualified_names"      => 'True',
-    "fallback_homedir"               => '/home/%u@%d',
-    "access_provider"                => 'ad',
-    "dyndns_update"                  => 'True',
-    "dyndns_refresh_interval"        => '60',
-    "min_id"                         => '1',
-    "max_id"                         => '0',
-    "enumerate"                      => 'False',
-    "force_timeout"                  => '60',
-    "entry_cache_timeout"            => '30',
-    "account_cache_expiration"       => '5',
-    "pwd_expiration_warning"         => '7',
-    "lookup_family_order"            => 'ipv4_first',
-    "dns_resolver_timeout"           => '5',
+    'ad_domain'                      => node['domain'],
+    'krb5_realm'                     => node['domain'].upcase,
+    'realmd_tags'                    => 'manages-system joined-with-samba',
+    'cache_credentials'              => 'False',
+    'id_provider'                    => 'ad',
+    'krb5_store_password_if_offline' => 'False',
+    'default_shell'                  => '/bin/bash',
+    'ldap_id_mapping'                => 'True',
+    'use_fully_qualified_names'      => 'True',
+    'fallback_homedir'               => '/home/%u@%d',
+    'access_provider'                => 'ad',
+    'dyndns_update'                  => 'True',
+    'dyndns_refresh_interval'        => '60',
+    'min_id'                         => '1',
+    'max_id'                         => '0',
+    'enumerate'                      => 'False',
+    'force_timeout'                  => '60',
+    'entry_cache_timeout'            => '30',
+    'account_cache_expiration'       => '5',
+    'pwd_expiration_warning'         => '7',
+    'lookup_family_order'            => 'ipv4_first',
+    'dns_resolver_timeout'           => '5',
   }
 
-  configuration = Hash.new
-  
+  configuration = {}
+
   new_resource.configuration.each do |key, value|
-    case key
-    when 'sssd'
-      configuration[key] = value.merge(default_sssd_section)
-    when /^domain\/.*/
-      configuration[key] = value.merge(default_domain_section)
-    else
-      configuration[key] = value
+    configuration[key] = case key
+                         when 'sssd'
+                           value.merge(default_sssd_section)
+                         when %r{^domain/.*}
+                           value.merge(default_domain_section)
+                         else
+                           value
+                         end
   end
 
   service 'sssd' do
