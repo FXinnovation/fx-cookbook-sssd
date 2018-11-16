@@ -10,8 +10,8 @@ resource_name :sssd
 
 provides :sssd, platform_family: 'rhel'
 
-property :version, String
-property :configuration, Hash
+property :version,       String
+property :configuration, Hash, default: {}
 
 default_action :install
 
