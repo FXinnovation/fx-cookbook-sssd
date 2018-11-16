@@ -11,7 +11,7 @@ resource_name :sssd
 provides :sssd, platform_family: 'rhel'
 
 property :version, String
-#property :configuration, Hash, default: node['sssd']['configuration']
+# property :configuration, Hash, default: node['sssd']['configuration']
 
 default_action :install
 
@@ -22,20 +22,20 @@ action :install do
   end
 end
 
-#action :configure do
-#  service 'sssd' do
-#    action :nothing
-#  end
-#
-#  template '/etc/sssd/sssd.conf' do
-#    source 'sssd.conf.erb'
-#    mode   '0600'
-#    owner  'root'
-#    group  'root'
-#    notifies :restart, 'service[sssd]', :delayed
-#    variables(
-#      configuration: new_resource.configuration
-#    )
-#    action :create
-#  end
-#end
+# action :configure do
+#   service 'sssd' do
+#     action :nothing
+#   end
+# 
+#   template '/etc/sssd/sssd.conf' do
+#     source 'sssd.conf.erb'
+#     mode   '0600'
+#     owner  'root'
+#     group  'root'
+#     notifies :restart, 'service[sssd]', :delayed
+#     variables(
+#       configuration: new_resource.configuration
+#     )
+#     action :create
+#   end
+# end
