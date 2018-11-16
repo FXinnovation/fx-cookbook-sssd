@@ -26,7 +26,7 @@ end
 #   service 'sssd' do
 #     action :nothing
 #   end
-# 
+#
 #   template '/etc/sssd/sssd.conf' do
 #     source 'sssd.conf.erb'
 #     mode   '0600'
