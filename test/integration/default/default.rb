@@ -23,11 +23,11 @@ control "sssd - #{os.name} #{os.release} - 02" do
     'id_provider = ad',
     'max_id = 0',
     'enumerate = False',
-    'services = nss, pam'
+    'services = nss, pam',
   ]
   lines.each do |line|
     describe file('/etc/sssd/sssd.conf') do
-      its('content') { should match(%r{#{line}}) }
+      its('content') { should match(/#{line}/) }
     end
   end
 end
