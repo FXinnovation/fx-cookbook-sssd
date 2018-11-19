@@ -64,9 +64,9 @@ action :configure do
   new_resource.configuration.each do |key, value|
     configuration[key] = case key
                          when 'sssd'
-                           value.merge(default_sssd_section)
+                           default_sssd_section.merge(value)
                          when %r{^domain/.*}
-                           value.merge(default_domain_section)
+                           default_domain_section.merge(value)
                          else
                            value
                          end
