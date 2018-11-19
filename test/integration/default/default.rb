@@ -2,7 +2,7 @@
 # kitchen tests for the sssd cookbook
 #
 
-control "sssd - #{os.name} #{is.release} - 01" do
+control "sssd - #{os.name} #{os.release} - 01" do
   title 'Ensure required packages are installed'
   packages = %w(sssd)
   packages.each do |package_name|
