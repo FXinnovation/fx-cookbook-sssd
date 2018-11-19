@@ -6,7 +6,7 @@ control "sssd - #{os.name} #{os.release} - 01" do
   title 'Ensure required packages are installed'
   packages = %w(sssd)
   packages.each do |package_name|
-    describe(package_name) do
+    describe package(package_name) do
       it { should be_installed }
     end
   end
