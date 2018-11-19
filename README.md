@@ -21,6 +21,7 @@ The `sssd` resource allows you to install and configure sssd.
 | `version` | `String` | `false` | - | `All` | Version of the sssd package to install |
 | `configuration` | `Hash` | `false` | `{}` | `All` | Configuration hash for sssd, see configuration structure below |
 | `action` | `[:install, :configure]` | `false` | `:install` | `All` | Action to apply to the resource |
+| `restart_service` | `[true, false]` | `false` | `true` | `All` | Wheter to restart sssd service after `:configure` action |
 
 #### Note
 Configuration Structure is a Hash following the following structure:
@@ -33,6 +34,8 @@ Configuration Structure is a Hash following the following structure:
   },
 }
 ```
+
+Parameters of sssd itself can be found in the `man` page of `sssd.conf`.
 
 ## Versionning
 This cookbook will follow semantic versionning 2.0.0 as described [here](https://semver.org/)
